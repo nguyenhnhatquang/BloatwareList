@@ -13,12 +13,18 @@ This guide provides step-by-step instructions on how to install ADB (Android Deb
 1. Ensure your Android device is connected and ADB is properly set up. 
 2. Open PowerShell.
 3. Run the following script:
+- Remove All
 ```
 Get-Content <path/to/list> | ForEach-Object {
-    if ($_ -notmatch '^#') {
-        adb shell pm uninstall --user 0 $_
+    $line = $_.Trim()
+    if ($line -ne '' -and $line -notmatch '^#') {
+        adb shell pm uninstall --user 0 $line
     }
 }
+```
+- Remove One
+```
+adb shell pm uninstall --user 0 <package>
 ```
 Note: Removing system apps can potentially cause issues with your device. Make sure that you only remove apps that you are sure you don't need.
 
